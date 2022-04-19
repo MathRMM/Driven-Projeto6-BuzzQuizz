@@ -1,11 +1,11 @@
 
     
-
+  @media (max-width: 1100px){
     body{
     
         font-family: 'Roboto';
         font-style: normal;
-        background-color: #FFFFFF;
+        background-color: #a01616;
     }
 
     header{
@@ -13,7 +13,7 @@
         justify-content: center;
         height: 70px;
         width: 100%;
-        background-color: red;
+        background-color: rgb(12, 12, 12);
         align-items: center;
     }
 
@@ -34,34 +34,15 @@
         width: 80%;
         margin: 70px 0px;
         border: 1px dashed #D5D5D5;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        border-radius: 5px;
     }
-    div.criar-quizz div.texto{
-        height: 108px;
-        width: 250px;
-        color: #B9B9B9;
-        display: flex;
-        flex-wrap: wrap;
-        margin-top: 25px;
-    }
-    div.criar-quizz div.botao{
-        font-size: 21px;
-        line-height: 25px;
-        display: flex;
-        align-items: center;
+   /*  div.criar-quizz div span{
         text-align: center;
+    } */
+    div.criar-quizz button.criar{
         color: #EC362D;
         border: 1px dashed #EC362D;
         box-sizing: border-box;
-        border-radius: 50px;
-        padding: 5px;
-        margin-bottom: 25px;
     }
-
     div.lista-quizz{
         display: flex;
         flex-wrap: wrap;
@@ -74,12 +55,5 @@
         width: 340px;
         object-fit: cover;
         margin: 10px 15px;
-        border-radius: 5px;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%)
-        
     }
-    div.lista-quizz div.quizz{
-        
-    }
-    @media (max-width: 1100px){
 }
