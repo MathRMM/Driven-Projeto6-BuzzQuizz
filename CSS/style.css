@@ -22,11 +22,28 @@
         font-size: 38px;
         color: white;
     }
+    h2 {
+        font-family: 'Roboto';
+        font-weight: 700;
+        font-size: 20px;
+        color: #000000;
+    }
+    h3 {
+        font-family: 'Roboto';
+        font-weight: 400;
+        font-size: 19px;
+        color: #ffffff;
+        width: 309px;
+        position: absolute;
+        top: 127.5px;
+        left: 23.5px;
+    }
 
     main{
         display: flex;
         align-items: center;
         flex-direction: column;
+        position: relative;
     }
 
     div.criar-quizz{
@@ -39,6 +56,7 @@
         justify-content: center;
         align-items: center;
         border-radius: 5px;
+        box-sizing: border-box;
     }
     div.criar-quizz div.texto{
         height: 108px;
@@ -61,25 +79,45 @@
         padding: 5px;
         margin-bottom: 25px;
     }
-
+    .titulo-lista-quizz {
+        width: 158px;
+        height: 23px;
+        position: absolute;
+        top: 329.5px;
+        left: 150px;
+    }
     div.lista-quizz{
         display: flex;
         flex-wrap: wrap;
         width: 80%;
         justify-content: center;
+        margin-top: 33.5px;
+        
+    }
+    .quizz {
+        
+        position: relative;
+        
+    }
+    .titulo-quizz {
+        
     }
 
     div.lista-quizz div.quizz img{
         height: 182px;
         width: 340px;
-        object-fit: cover;
-        margin: 10px 15px;
+        
+        margin: 7.5px;
         border-radius: 5px;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%)
+        
         
     }
     div.lista-quizz div.quizz{
         
     }
     @media (max-width: 1100px){
+        .titulo-lista-quizz {
+            
+            left: 18px;
+        }
 }
