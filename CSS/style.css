@@ -43,7 +43,8 @@
         display: flex;
         align-items: center;
         flex-direction: column;
-        position: relative;
+        background-color: #fafafa;
+        position: relative;             
     }
 
     div.criar-quizz{

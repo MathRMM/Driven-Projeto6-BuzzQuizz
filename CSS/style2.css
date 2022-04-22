@@ -18,6 +18,11 @@ h1{
     font-size: 38px;
     color: white;
 }
+h2{
+    font-weight: 700d;
+    font-size: 23px;
+    color: white;
+}
 h4 {
     font-weight: 400;
     font-size: 39px;
@@ -35,4 +40,35 @@ h4 {
 }
 .img-topo img {
     width: 100%;
+}
+main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fafafa;
+}
+.caixa-quizz {
+    height: 676px;
+    width: 759px;
+    background-color: #ffffff;
+    box-shadow: 5%;
+    margin-top: 42px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+.caixa-pergunta {
+    height: 138px;
+    width: 688px;
+    background-color: #434ca0;
+    display:flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-top: 28px;
+}
+.caixa-quizz img {
+    width: 330px;
+    height: 175px;
 }
