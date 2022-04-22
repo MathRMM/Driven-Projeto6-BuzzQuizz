@@ -23,11 +23,28 @@
         font-size: 38px;
         color: white;
     }
+    h2 {
+        font-family: 'Roboto';
+        font-weight: 700;
+        font-size: 20px;
+        color: #000000;
+    }
+    h3 {
+        font-family: 'Roboto';
+        font-weight: 400;
+        font-size: 19px;
+        color: #ffffff;
+        width: 310px;
+        position: absolute;
+        top: 108px;
+        left: 24px;
+    }
 
     main{
         display: flex;
         align-items: center;
         flex-direction: column;
+        position: relative;
     }
 
     div.criar-quizz{
@@ -40,6 +57,7 @@
         justify-content: center;
         align-items: center;
         border-radius: 5px;
+        box-sizing: border-box;
     }
     div.criar-quizz div.texto{
         height: 108px;
@@ -48,6 +66,7 @@
         display: flex;
         flex-wrap: wrap;
         margin-top: 25px;
+        text-align-last:center ;
     }
     div.criar-quizz div.botao{
         font-size: 21px;
@@ -73,27 +92,39 @@
         flex-wrap: wrap;
         width: 80%;
         justify-content: center;
+        z-index: 1;
+        position: relative;
     }
-    div.lista-quizz div.quizz img{
-        height: 182px;
-        width: 340px;
-        object-fit: cover;
-        margin: 10px 15px;
-        border-radius: 5px;
-        background-image:linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%),url("https://epipoca.com.br/wp-content/uploads/2021/07/Ricky-and-Morty-Divulgacao.jpg");
-        
+
+    .titulo-lista-quizz {
+        width: 158px;
+        height: 23px;
+        position: absolute;
+        top: -10px;
+        left: 150px;
+    }
+
+    .quizz {
+        position: relative;
     }
     
+    
 
-    div.lista-quizz div.quizz.ricknmorty img{
+    div.lista-quizz div.quizz.ricknmorty{
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%),url("https://epipoca.com.br/wp-content/uploads/2021/07/Ricky-and-Morty-Divulgacao.jpg");
+        background-size: cover;
+        background-position: center;
         height: 182px;
         width: 340px;
         object-fit: cover;
-        margin: 10px 15px;
-        border-radius: 5px;
-        background:linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%),url("https://epipoca.com.br/wp-content/uploads/2021/07/Ricky-and-Morty-Divulgacao.jpg");
+        margin: 20px 15px;
+        border-radius: 5px;      
     }
 
     
     @media (max-width: 1100px){
+        .titulo-lista-quizz {
+            
+            left: 18px;
+        }
 }

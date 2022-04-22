@@ -1,0 +1,38 @@
+body{
+    
+    font-family: 'Roboto';
+    font-style: normal;
+    background-color: #FFFFFF;
+}
+
+header{
+    display: flex;
+    justify-content: center;
+    height: 70px;
+    width: 100%;
+    background-color: red;
+    align-items: center;
+}
+h1{
+    font-weight: bold;
+    font-size: 38px;
+    color: white;
+}
+h4 {
+    font-weight: 400;
+    font-size: 39px;
+    color: white;
+}
+.img-topo {
+    width: 100%;
+    height: 227px;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url(https://epipoca.com.br/wp-content/uploads/2021/07/Ricky-and-Morty-Divulgacao.jpg);
+}
+.img-topo img {
+    width: 100%;
+}
