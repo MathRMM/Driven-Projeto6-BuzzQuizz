@@ -6,6 +6,7 @@
         font-family: 'Roboto';
         font-style: normal;
         background-color: #FFFFFF;
+        
     }
 
     header{
@@ -33,10 +34,10 @@
         font-weight: 400;
         font-size: 19px;
         color: #ffffff;
-        width: 309px;
+        width: 310px;
         position: absolute;
-        top: 127.5px;
-        left: 23.5px;
+        top: 108px;
+        left: 24px;
     }
 
     main{
@@ -49,7 +50,7 @@
 
     div.criar-quizz{
         height: 181px;
-        width: 80%;
+        width: 65%;
         margin: 70px 0px;
         border: 1px dashed #D5D5D5;
         display: flex;
@@ -66,6 +67,7 @@
         display: flex;
         flex-wrap: wrap;
         margin-top: 25px;
+        text-align-last:center ;
     }
     div.criar-quizz div.botao{
         font-size: 21px;
@@ -80,42 +82,47 @@
         padding: 5px;
         margin-bottom: 25px;
     }
-    .titulo-lista-quizz {
-        width: 158px;
-        height: 23px;
-        position: absolute;
-        top: 329.5px;
-        left: 150px;
+    
+    div.criar-quizz div.botao:hover{
+        color: rgba(235, 48, 48, 0.416);
+        border: rgb(235, 48, 48);
     }
+
     div.lista-quizz{
         display: flex;
         flex-wrap: wrap;
         width: 80%;
         justify-content: center;
-        margin-top: 33.5px;
-        
-    }
-    .quizz {
-        
+        z-index: 1;
         position: relative;
-        
-    }
-    .titulo-quizz {
-        
     }
 
-    div.lista-quizz div.quizz img{
+    .titulo-lista-quizz {
+        width: 158px;
+        height: 23px;
+        position: absolute;
+        top: -10px;
+        left: 150px;
+    }
+
+    .quizz {
+        position: relative;
+    }
+    
+    
+
+    div.lista-quizz div.quizz.ricknmorty{
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%),url("https://epipoca.com.br/wp-content/uploads/2021/07/Ricky-and-Morty-Divulgacao.jpg");
+        background-size: cover;
+        background-position: center;
         height: 182px;
         width: 340px;
-        
-        margin: 7.5px;
-        border-radius: 5px;
-        
-        
+        object-fit: cover;
+        margin: 20px 15px;
+        border-radius: 5px;      
     }
-    div.lista-quizz div.quizz{
-        
-    }
+
+    
     @media (max-width: 1100px){
         .titulo-lista-quizz {
             
