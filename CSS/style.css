@@ -11,6 +11,9 @@ header {
     width: 100%;
     background-color: red;
     align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 3;
 }
 
 h1 {
@@ -37,7 +40,11 @@ h3 {
     left: 24px;
 }
 
-main {
+main{
+    margin-top: 100px;
+}
+
+.tela_1{
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -56,6 +63,7 @@ div.criar-quizz {
     align-items: center;
     border-radius: 5px;
     box-sizing: border-box;
+    display: none;
 }
 
 div.criar-quizz div.texto {
@@ -87,6 +95,25 @@ div.criar-quizz div.botao:hover {
     border: rgb(235, 48, 48);
 }
 
+div.quizz_usuario{
+    height: 182px;
+    width: 80%;
+    margin: 70px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    box-sizing: border-box;
+    justify-items: start;
+    position: relative;
+}
+div.quizz_usuario h2{
+    position: absolute;
+    top: 0;
+    left: 100px;
+}
+
 div.lista-quizz {
     position: relative;
     display: flex;
@@ -112,21 +139,16 @@ div.lista-quizz ul {
 
 .quizz {
     position: relative;
-}
-
-div.lista-quizz div#911.quizz {
-    background: linear-gradient(180deg,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(0, 0, 0, 0.5) 64.58%,
-            #000000 100%),
-        url(https://imgr.search.brave.com/gBuLQuOfwYkhDCx_A6GAmzYlU2L24j4v-5BWHmPbTTs/fit/503/225/no/1/aHR0cHM6Ly90c2Uz/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5Q/c3A3NnRBRUt5cXpR/UFhFbkdfN2pRSGFH/LSZwaWQ9QXBp);
-    background-size: cover;
-    background-position: center;
     height: 182px;
     width: 340px;
     object-fit: cover;
     margin: 20px 15px;
     border-radius: 5px;
+}
+
+
+.esconder{
+    display: none;
 }
 
 @media (max-width: 1100px) {

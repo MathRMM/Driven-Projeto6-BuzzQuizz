@@ -14,7 +14,8 @@ function iniciar_site() {
 }
 
 function lista_quizz() {
-    axios.get(`${API}`).then(implementar_quizz);
+   const promisse = axios.get(`${API}`).then(implementar_quizz);
+   
 }
 
 function implementar_quizz(promisse) {
@@ -28,15 +29,11 @@ function implementar_quizz(promisse) {
                     url(${listar_img_quizz});
                     background-size: cover;
                     background-position: center;
-                    height: 182px;
-                    width: 340px;
-                    object-fit: cover;
-                    margin: 20px 15px;
-                    border-radius: 5px;      
+                          
                 }`;
 
         contain_ul.innerHTML += `
-                <div id="a${listar_id_quizz}" class="quizz">
+                <div id="a${listar_id_quizz}" class="quizz" onClick = Mudar_tela()>
                     <h3>${listar_title_quizz}</h3>
                 </div>
             `;
@@ -44,10 +41,17 @@ function implementar_quizz(promisse) {
     }
 }
 
+function Mudar_tela(){
+    resetar_tela()
+}
 
+function resetar_tela(){
+    const main = document.querySelector(".tela_1")
+    if (main.parentNode){
+        main.parentNode.removeChild(main)
+    }
+}
 
-//chamar função
-iniciar_site();
 
 //Tela 2 - Quizz
 function selecionarResposta(elemento) {
@@ -68,3 +72,7 @@ function selecionarResposta(elemento) {
         }
     }
 }
+
+
+//chamar função
+iniciar_site();

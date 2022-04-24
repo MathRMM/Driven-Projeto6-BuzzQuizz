@@ -16,7 +16,13 @@
     rel="stylesheet" />
 
   <style>
-
+div.quizz_usuario div#a8097.quizz{
+                    background:linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%),
+                    url(https://www.global-esports.news/wp-content/uploads/2022/01/League-of-Legends-2022.jpg);
+                    background-size: cover;
+                    background-position: center;
+                          
+                }
   </style>
 </head>
 
@@ -28,20 +34,29 @@
   </header>
 
   <main>
-    <div class="criar-quizz">
-      <div class="texto">
-        <span> Você nâo criou nenhum quizz ainda :(</span>
+    <div class="tela_1">
+      <div class="criar-quizz esconder ">
+        <div class="texto">
+          <span> Você nâo criou nenhum quizz ainda :(</span> 
+        </div>
+        <div class="botao">Criar Quizz</div>
       </div>
-      <div class="botao">Criar Quizz</div>
-    </div>
-
-    <div class="lista-quizz">
-      <div class="titulo-lista-quizz">
-        <h2>Todos os Quizzes</h2>
+      <div class="quizz_usuario">
+        <h2>Seus Quizzes</h2>
+        <div class="quizz">
+          <div id="a8097" class="quizz" onclick="Mudar_tela()">
+            <h3>League of Legends: O teste definitivo</h3>
+        </div>
+        </div>
       </div>
-      <ul>
-      </ul>
-    </div>
+      <div class="lista-quizz">
+        <div class="titulo-lista-quizz">
+          <h2>Todos os Quizzes</h2>
+        </div>
+        <ul>
+        </ul>
+      </div>
+    </div>  
   </main>
 
 </body>
