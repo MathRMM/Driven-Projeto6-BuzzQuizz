@@ -8,7 +8,7 @@ const elementoQueQueroQueApareca = document.querySelector("ul");
 let img_quizz;
 let r = 0;
 
-
+//Parte da pagina do quizz
 const imagemexemplo = "https://i0.wp.com/www.popsfera.com.br/wp-content/uploads/2020/06/rmcapa.jpg?resize=800%2C445&ssl=1";
 const imagemexemplodois = "https://img.quizur.com/f/img616d7cd648db87.18180838.jpeg?lastEdited=1634565339";
 const quizzes = [
@@ -51,19 +51,20 @@ console.log(quizzes[1].objeto[0].respostastatus);
 console.log(quizzes.length);
 
 
-let adicionarQuizz = document.querySelector(".caixa-quizz");
+let adicionarQuizz = document.querySelector(".caixa-auxiliar");
 
 for (j = 0; j < quizzes.length; j++) {
 
     let sorteador = quizzes[j].objeto.sort(comparador);
 
-    adicionarQuizz.innerHTML = `<div class="caixa-pergunta corum"><h2>Qualquer pergunta tosca, aqui?</h2></div>
-    <div class="caixa-duas-opcoes um">
-      
+    adicionarQuizz.innerHTML = `<div class="caixa-quizz">        
+    <div class="caixa-pergunta corum"><h2>Qualquer pergunta tosca, aqui?</h2></div>
+    <div class="caixa-duas-opcoes um">      
     </div>
-    <div class="caixa-duas-opcoes dois">
-      
-      </div>` + adicionarQuizz.innerHTML;
+    <div class="caixa-duas-opcoes dois">  
+    </div>
+    </div>`
+     + adicionarQuizz.innerHTML;
 
 
     let adicionarPerguntasum = document.querySelector(".um");
@@ -153,6 +154,12 @@ function selecionarResposta(elemento) {
             aux.querySelector(".opcao-resposta").classList.remove("oculta");
         }
     }
+    
+    setTimeout(scrollar, 2000);
+    function scrollar () {   
+    let scrolll = document.querySelector(".caixa-quizz:nth-child(2)").scrollIntoView();
+    
+}
 }
 function comparador() { 
 	return Math.random() - 0.5; 
