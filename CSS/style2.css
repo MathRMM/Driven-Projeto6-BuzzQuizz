@@ -10,11 +10,12 @@ header{
     justify-content: center;
     height: 70px;
     width: 100%;
-    background-color: #EC362D;
+    background-color: #EC362D;    
     align-items: center;
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 1;
 }
 h1{
     font-weight: bold;
@@ -93,6 +94,7 @@ main {
     margin-inline: 7px;
     
 }
+
 .caixa-duas-opcoes {
     width: 100%;
     display: flex;
@@ -100,11 +102,21 @@ main {
     margin-top: 20px;
     margin-inline: 7px;    
 }
+.caixa-opcao {
+    width:100%;
+    max-width: 332.5px;
+}
+
 .caixa-duas-opcoes .caixa-opcao:nth-child(1) {
     margin-right: 12px;
 }
 .caixa-duas-opcoes .caixa-opcao:nth-child(2) {
     margin-left: 12px;
+}
+.caixa-opcoe img {
+    width: 100%;
+    max-width: 332.5px;
+
 }
 .caixa-quizz img {
     width: 100%;
@@ -113,11 +125,14 @@ main {
     opacity: 0.3; 
      
     }
-.clicada {
+.correta {
     color: #009C22;
 }
-.naoclicadafonte {
+.errada {
     color: #FF4B4B;
+}
+.oculta {
+    color: #000000;
 }
 
 
@@ -132,7 +147,8 @@ main {
     }
     .caixa-quizz {
         height: 436px;
-        width: 100%;  
+        width: 100%; 
+        max-width: 759px; 
         padding: 18px;   
         margin-top: 24px;  
     }
@@ -149,12 +165,18 @@ main {
     .caixa-duas-opcoes {        
         margin-top: 13px;
         margin-inline: 0px;
+        max-width: 689px;
+        max-height: 136px;
     }
     .caixa-duas-opcoes .caixa-opcao:nth-child(1) {
         margin-right: 6px;
     }
     .caixa-duas-opcoes .caixa-opcao:nth-child(2) {
         margin-left: 6px;
+    }
+    .caixa-opcao img {
+        max-height: 119px;
+        max-width: 210px;
     }
 
 }
