@@ -5,9 +5,9 @@ const main = document.querySelector("main");
 const elementoQueQueroQueApareca = document.querySelector("ul");
 let lista_quizz_usuario = [];
 let lista_quizz_api = [];
-
+let quizz
 let img_quizz;
-let r = 0;
+let r = -1;
 
 //Parte da pagina do quizz
 
@@ -52,9 +52,8 @@ function implementar_quizz(promisse) {
                     <h3>${listar_title_quizz}</h3>
                 </div>
             `;
-        r++;
     }
-    console.log(lista_quizz_api[2].questions[0].answers[0]);
+    console.log(lista_quizz_api[2].id);
 }
 
 function selecionar_tela_quizzusuario() {
@@ -128,12 +127,13 @@ function selecionarResposta(elemento) {
             aux.querySelector(".opcao-resposta").classList.remove("oculta");
         }
     }
+    r++
 
     setTimeout(scrollar, 2000);
 
     function scrollar() {
         let scrolll = document
-            .querySelector(".caixa-quizz:nth-child(2)")
+            .querySelector(`#a${r}.caixa-quizz`)
             .scrollIntoView();
     }
 }
@@ -144,104 +144,66 @@ function comparador() {
 
 function Mudar_tela_quizz(paramentro) {
     resetar_tela1_style();
-    console.log(paramentro.id);
+    let id_quizz_selecionado = paramentro.id
+    console.log(id_quizz_selecionado)
+    
 
+     for(let i=0; i < lista_quizz_api.length ; i++){
+        let id_quizz = "quizz_"+ lista_quizz_api[i].id
+        if(id_quizz === id_quizz_selecionado){
+            quizz = lista_quizz_api[i]
+            console.log(quizz.questions.length)
+        }
+    } 
+    implementar_tela_2()
+}
+  
+   
+function implementar_tela_2(){
     main.innerHTML = `
   <div class="tela_2">
         <div class="img-topo" style="
             background: linear-gradient(to bottom, rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.60)), 
-            url(https://epipoca.com.br/wp-content/uploads/2021/07/Ricky-and-Morty-Divulgacao.jpg);
+            url(${quizz.image});
             background-size: cover;
             background-position: center;">
             <h4>
-                O título do Quizz vem aqui por cima da foto, colocando grande para
-                quebrar.
+                ${quizz.title}
             </h4>
         </div>
         <div class="caixa-auxiliar">
         </div>
     </div>
   `;
-
-    const imagemexemplo =
-        "https://i0.wp.com/www.popsfera.com.br/wp-content/uploads/2020/06/rmcapa.jpg?resize=800%2C445&ssl=1";
-    const imagemexemplodois =
-        "https://img.quizur.com/f/img616d7cd648db87.18180838.jpeg?lastEdited=1634565339";
-    const quizzes = [
-        {
-            objeto: [
-                {
-                    imagem: imagemexemplo,
-                    respostastatus: "correta",
-                },
-                {
-                    imagem: imagemexemplo,
-                    respostastatus: "errada",
-                },
-                {
-                    imagem: imagemexemplo,
-                    respostastatus: "errada",
-                },
-                {
-                    imagem: imagemexemplo,
-                    respostastatus: "errada",
-                },
-            ],
-        },
-        {
-            objeto: [
-                {
-                    imagem: imagemexemplodois,
-                    respostastatus: "correta",
-                },
-                {
-                    imagem: imagemexemplodois,
-                    respostastatus: "errada",
-                },
-                {
-                    imagem: imagemexemplodois,
-                    respostastatus: "errada",
-                },
-                {
-                    imagem: imagemexemplodois,
-                    respostastatus: "errada",
-                },
-            ],
-        },
-    ];
-
-    let adicionarQuizz = document.querySelector(".caixa-auxiliar");
-
-    for (j = 0; j < quizzes.length; j++) {
-        let sorteador = quizzes[j].objeto.sort(comparador);
-
-        adicionarQuizz.innerHTML =
-            `<div class="caixa-quizz">        
-    <div class="caixa-pergunta corum"><h2>Qualquer pergunta tosca, aqui?</h2></div>
-    <div class="caixa-duas-opcoes um">      
-    </div>
-    <div class="caixa-duas-opcoes dois">  
-    </div>
-    </div>` + adicionarQuizz.innerHTML;
-
-        let adicionarPerguntasum = document.querySelector(".um");
-
-        for (let i = 0; i < 2; i++) {
-            adicionarPerguntasum.innerHTML += `<div class="caixa-opcao auxiliar" onclick="selecionarResposta(this)">
-    <img src=${sorteador[i].imagem}/>
-   <p class="opcao-resposta ${sorteador[i].respostastatus} oculta">Resposta ${i}</p>`;
-        }
-
-        let adicionarPerguntasdois = document.querySelector(".dois");
-        for (let i = 2; i < 4; i++) {
-            adicionarPerguntasdois.innerHTML += `<div class="caixa-opcao auxiliar" onclick="selecionarResposta(this)">
-    <img src=${sorteador[i].imagem}/>
-    <p class="opcao-resposta ${sorteador[i].respostastatus} oculta">Resposta ${i}</p>`;
-        }
-    }
+  questoes_quizz();
 }
+
+function questoes_quizz(){
+        let adicionarQuizz = document.querySelector(".caixa-auxiliar");
+
+        for (j = 0; j < quizz.questions.length; j++) {
+            let sorteador = quizz.questions
+             adicionarQuizz.innerHTML +=
+                `<div id="a${j}" class="caixa-quizz">        
+        <div class="caixa-pergunta corum" style = "background-color:${sorteador[j].color} ;"><h2>${sorteador[j].title}</h2></div>
+        <div class="caixa-duas-opcoes um">      
+        </div>
+        <div class="caixa-duas-opcoes dois">  
+        </div>
+        </div>`;
+
+            let adicionarPerguntasum = adicionarQuizz.querySelector(`#a${j} .um`);
+
+            for (let i = 0; i < sorteador[j].answers.length; i++) {
+                adicionarPerguntasum.innerHTML += `<div class="caixa-opcao auxiliar" onclick="selecionarResposta(this)">
+        <img src=${sorteador[j].answers[i].image}>
+    <p class="opcao-resposta ${sorteador[j].answers[i].isCorrectAnswer} oculta">Resposta ${i}</p>`;
+            }            
+        } 
+       
+    }
 
 // Tela 3 - Montar quizz do Usuario
 //chamar função
 iniciar_site();
-//Mudar_tela_criar();
+

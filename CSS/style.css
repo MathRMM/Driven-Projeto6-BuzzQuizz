@@ -64,6 +64,7 @@ main{
     flex-direction: column;
     background-color: #fafafa;
     position: relative;
+    width: 100%;
 }
 .tela_1 .superior{
     height: 210px;
@@ -254,6 +255,7 @@ main {
 .caixa-duas-opcoes {
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 20px;
     margin-inline: 7px;    
@@ -269,10 +271,11 @@ main {
 .caixa-duas-opcoes .caixa-opcao:nth-child(2) {
     margin-left: 12px;
 }
-.caixa-opcoe img {
-    width: 100%;
-    max-width: 332.5px;
-
+.caixa-quizz img {
+    width: 330px;
+    height: 176px;
+    border-radius: 10px;
+    object-fit: cover;
 }
 .caixa-quizz img {
     width: 100%;
