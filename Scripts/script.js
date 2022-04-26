@@ -8,7 +8,8 @@ let lista_quizz_api = [];
 let quizz
 let img_quizz;
 let r = -1;
-
+console.log(lista_quizz_api);
+console.log(lista_quizz_usuario);
 //Parte da pagina do quizz
 
 //funções
@@ -107,9 +108,21 @@ function resetar_tela1_style() {
     }
 }
 
+function resetar_tela2_style() {
+    const tela_2 = document.querySelector(".tela_2");
+    if (tela_2.parentNode) {
+        tela_2.parentNode.removeChild(tela_2);
+    }
+}
+
 //Tela 2 - Quizz
+let contadorNota = 0;
+let nota = 0;
+let asc = 0;
+
 function selecionarResposta(elemento) {
-    console.log(elemento);
+    console.log(elemento.querySelector(".true"));
+
 
     elemento.classList.remove("auxiliar");
     elemento.querySelector(".opcao-resposta").classList.remove("oculta");
@@ -118,6 +131,11 @@ function selecionarResposta(elemento) {
 
     const pai = elemento.parentNode.parentNode;
     console.log(pai);
+
+    if (elemento.querySelector(".true") !== null) {
+        contadorNota++;
+    }
+    console.log(contadorNota);
 
     for (let i = 0; i < 3; i++) {
         let aux = pai.querySelector(".auxiliar");
@@ -129,13 +147,24 @@ function selecionarResposta(elemento) {
     }
     r++
 
-    setTimeout(scrollar, 2000);
 
-    function scrollar() {
-        let scrolll = document
-            .querySelector(`#a${r}.caixa-quizz`)
-            .scrollIntoView();
+    if (asc <= quizz.questions.length) {
+        setTimeout(scrollar, 2000);
+
+        function scrollar() {
+            let scrolll = document.querySelector(`.caixa-quizz:nth-child(${asc})`).scrollIntoView();
+            asc++;
+        }
+    } else {
+        implementar_finalizador();
+        setTimeout(scrollar, 2000);
+
+        function scrollar() {
+            let scrolll = document.querySelector(".finalizador").scrollIntoView();
+        }
     }
+
+
 }
 
 function comparador() {
@@ -146,20 +175,22 @@ function Mudar_tela_quizz(paramentro) {
     resetar_tela1_style();
     let id_quizz_selecionado = paramentro.id
     console.log(id_quizz_selecionado)
-    
 
-     for(let i=0; i < lista_quizz_api.length ; i++){
-        let id_quizz = "quizz_"+ lista_quizz_api[i].id
-        if(id_quizz === id_quizz_selecionado){
+
+    for (let i = 0; i < lista_quizz_api.length; i++) {
+        let id_quizz = "quizz_" + lista_quizz_api[i].id
+        if (id_quizz === id_quizz_selecionado) {
             quizz = lista_quizz_api[i]
             console.log(quizz.questions.length)
         }
-    } 
+    }
+
+    asc = quizz.questions.length - (quizz.questions.length - 2);
     implementar_tela_2()
 }
-  
-   
-function implementar_tela_2(){
+
+
+function implementar_tela_2() {
     main.innerHTML = `
   <div class="tela_2">
         <div class="img-topo" style="
@@ -173,18 +204,20 @@ function implementar_tela_2(){
         </div>
         <div class="caixa-auxiliar">
         </div>
+        <div class="finalizador">
+        </div>
     </div>
   `;
-  questoes_quizz();
+    questoes_quizz();
 }
 
-function questoes_quizz(){
-        let adicionarQuizz = document.querySelector(".caixa-auxiliar");
+function questoes_quizz() {
+    let adicionarQuizz = document.querySelector(".caixa-auxiliar");
 
-        for (j = 0; j < quizz.questions.length; j++) {
-            let sorteador = quizz.questions
-             adicionarQuizz.innerHTML +=
-                `<div id="a${j}" class="caixa-quizz">        
+    for (j = 0; j < quizz.questions.length; j++) {
+        let sorteador = quizz.questions;
+        adicionarQuizz.innerHTML +=
+            `<div id="a${j}" class="caixa-quizz">        
         <div class="caixa-pergunta corum" style = "background-color:${sorteador[j].color} ;"><h2>${sorteador[j].title}</h2></div>
         <div class="caixa-duas-opcoes um">      
         </div>
@@ -192,18 +225,62 @@ function questoes_quizz(){
         </div>
         </div>`;
 
-            let adicionarPerguntasum = adicionarQuizz.querySelector(`#a${j} .um`);
+        let adicionarPerguntasum = adicionarQuizz.querySelector(`#a${j} .um`);
 
-            for (let i = 0; i < sorteador[j].answers.length; i++) {
-                adicionarPerguntasum.innerHTML += `<div class="caixa-opcao auxiliar" onclick="selecionarResposta(this)">
+        for (let i = 0; i < sorteador[j].answers.length; i++) {
+            adicionarPerguntasum.innerHTML += `<div class="caixa-opcao auxiliar" onclick="selecionarResposta(this)">
         <img src=${sorteador[j].answers[i].image}>
     <p class="opcao-resposta ${sorteador[j].answers[i].isCorrectAnswer} oculta">Resposta ${i}</p>`;
-            }            
-        } 
-       
+        }
     }
+    console.log(quizz.levels);
+    scrollar();
+
+    function scrollar() {
+        let scrolll = document.querySelector(".tela_2").scrollIntoView();
+    }
+}
+
+function implementar_finalizador() {
+
+    nota = Math.round((contadorNota * 100) / quizz.questions.length);
+    console.log(nota);
+    for (let i = (quizz.levels.length - 1); i >= 0; i = i - 1) {
+        if (nota >= quizz.levels[i].minValue) {
+            let addFim = document.querySelector(".finalizador");
+            addFim.innerHTML = `      
+            <div class="img-topo-fim">
+                <h2> ${nota}% de acerto: ${quizz.levels[i].title} </h2>
+            </div>
+            <div class="conteudo-fim">
+            <img src=${quizz.levels[i].image}>
+            <p class="texto-fim">${quizz.levels[i].text}</p>            
+            </div>
+            </div>            
+            `;
+        }
+        let addBotao = document.querySelector("footer");
+        addBotao.innerHTML = `<div class="botao-reiniciar" onclick="reiniciarQuizz()"><p> Reiniciar Quizz<p></div>
+        <div class="botao-voltarinicial" onclick="voltarInicial()"><p>Voltar pra home</p></div>`
+    }
+}
+function reiniciarQuizz() {
+    let contadorNota = 0;
+    let nota = 0;
+    let asc = 0;
+    let addBotao = document.querySelector("footer");
+        addBotao.innerHTML = ``;
+    resetar_tela2_style();
+    implementar_tela_2();
+}
+
+function voltarInicial() {
+    resetar_tela2_style();
+    iniciar_site();
+}
+
+
 
 // Tela 3 - Montar quizz do Usuario
 //chamar função
 iniciar_site();
-
