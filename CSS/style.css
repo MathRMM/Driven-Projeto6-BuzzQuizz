@@ -130,6 +130,7 @@ div.criar-quizz div.botao {
     border-radius: 50px;
     padding: 5px;
     margin-bottom: 25px;
+    cursor: pointer;
 }
 
 div.criar-quizz div.botao:hover {
@@ -194,7 +195,7 @@ div.lista-quizz ul {
     margin: 20px 10px;
     border-radius: 15px;
     box-sizing: border-box;
-    
+    cursor: pointer;
 }
 
 .caixa-auxiliar {
@@ -333,6 +334,7 @@ div.lista-quizz ul {
 .caixa-opcao {
     width:100%;
     max-width: 332.5px;
+    cursor: pointer;
 }
 
 .caixa-duas-opcoes .caixa-opcao:nth-child(1) {
@@ -377,7 +379,7 @@ div.lista-quizz ul {
     justify-content: center;
     text-align: center;
     color: #FFF5F4;
-    
+    cursor: pointer;
 }
 .botao-voltarinicial {
     width: 261px;
@@ -389,6 +391,7 @@ div.lista-quizz ul {
     justify-content: center;
     font-size: 21px;
     margin-top: 25px;
+    cursor: pointer;
 }
 
 .tela_3 ul.comeco {
