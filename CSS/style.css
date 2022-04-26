@@ -1,5 +1,6 @@
-html{
-    height: 100%;
+html,body{
+    min-height: 100vh;
+    
 }
 
 body {
@@ -42,7 +43,7 @@ h3 {
     color: #ffffff;
     width: 310px;
     position: absolute;
-    top: 108px;
+    bottom: 10px;
     left: 24px;
 }
 
@@ -62,6 +63,7 @@ main{
     border-radius: 5px;
     height: 100%;
     width: 100%;
+    margin-top: 70px;
 }
 footer {
     display: flex;
@@ -240,10 +242,7 @@ div.lista-quizz ul {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
-    
-    
-    
+    justify-content: center;  
 }
 .tela_2 .img-topo img {
     width: 100%;
@@ -251,17 +250,17 @@ div.lista-quizz ul {
 }
 
 .caixa-quizz {
-    
     width: 759px;
     background-color: #ffffff;
     box-shadow: 5%;
-    margin-top: 42px;
+    margin-top: 20px;
     padding: 28px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     box-sizing: border-box;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    height: max-content;
 }
 .finalizador {
     width: 759px;
@@ -328,6 +327,7 @@ div.lista-quizz ul {
     display: flex;
     
     justify-content: space-between;
+
     margin-top: 20px;
     margin-inline: 7px;    
 }
@@ -356,6 +356,12 @@ div.lista-quizz ul {
     opacity: 0.3; 
      
     }
+.opcao-resposta.false.oculta {
+    color: #000000;
+}
+.opcao-resposta.true.oculta {
+    color: #000000;
+}
 .opcao-resposta.true {
     color: #009C22;
 }
@@ -406,7 +412,7 @@ div.lista-quizz ul {
     
 }
 
-.tela_3 ul .perguntas_usuarios{
+.tela_3 ul .perguntas_usuarios,.tela_3 ul .niveis_usuarios {
     width: 100%;
     height: max-content;
     display: flex;
@@ -414,7 +420,7 @@ div.lista-quizz ul {
     flex-direction: column;
 }
 
-.tela_3 ul .comeco_box, .tela_3 ul .pergutas1_usuario_box{
+.tela_3 ul .comeco_box, .tela_3 ul .pergutas1_usuario_box,.tela_3 ul .niveis_usuarios_box {
     margin-top: 20px;
     width: 50%;
     height: max-content;
@@ -459,6 +465,15 @@ div.lista-quizz ul {
     text-align: center;
 }
 
+.tela_3 ul h3{
+    bottom: 20px;
+}
+
+.tela_3 ul .quizz{
+    width: 500px;
+    height: 266px;
+}
+
 .tela_3 button.prosseguir:hover{
     background-color: #e9807b;
 }
@@ -499,7 +514,9 @@ div.lista-quizz ul {
         margin-top: 13px;
         margin-inline: 0px;
         max-width: 689px;
-        
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;       
     }
     .caixa-duas-opcoes .caixa-opcao:nth-child(1) {
         margin-right: 6px;

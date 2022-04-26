@@ -3,7 +3,7 @@
 const API = "https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes";
 const main = document.querySelector("main");
 const elementoQueQueroQueApareca = document.querySelector("ul");
-let lista_quizz_usuario = [];
+let lista_quizz_usuario =[];
 let lista_quizz_api = [];
 let lista_post_quizz = [];
 let title_usuario_quizz;
@@ -12,7 +12,7 @@ let questions_usuario_quizz;
 let levels_usuario_quizz;
 let quizz;
 let img_quizz;
-let r = -1;
+let r = 0;
 let texto_pergunta
 let cor_pergunta
 let resp_correta
@@ -26,6 +26,7 @@ let url_errada3
 let contadorNota = 0;
 let nota = 0;
 let asc = 0;
+
 //Parte da pagina do quizz
 
 //funções
@@ -73,7 +74,7 @@ function implementar_quizz(promisse) {
 }
 
 function selecionar_tela_quizzusuario() {
-    if (lista_quizz_usuario[0] == !undefined) {
+    if (lista_quizz_usuario == !undefined) {
         com_quizz_usuario();
     } else {
         sem_quizz_usuario();
@@ -220,6 +221,8 @@ function implementar_tela_2() {
         </div>
         <div class="finalizador">
         </div>
+        <footer>
+        </footer>
     </div>
   `;
     questoes_quizz();
@@ -235,8 +238,6 @@ function questoes_quizz() {
             `<div id="a${j}" class="caixa-quizz">        
         <div class="caixa-pergunta corum" style = "background-color:${sorteador[j].color} ;"><h2>${sorteador[j].title}</h2></div>
         <div class="caixa-duas-opcoes um">      
-        </div>
-        <div class="caixa-duas-opcoes dois">  
         </div>
         </div>`;
 
@@ -288,7 +289,8 @@ function implementar_finalizador() {
     let addBotao = document.querySelector("footer");
     addBotao.innerHTML = `<div class="botao-reiniciar" onclick="reiniciarQuizz()"><p> Reiniciar Quizz<p></div>
     <div class="botao-voltarinicial" onclick="voltarInicial()"><p>Voltar pra home</p></div>`
-}
+    }
+
 
 function reiniciarQuizz() {
     contadorNota = 0;
@@ -311,6 +313,12 @@ function voltarInicial() {
     iniciar_site();
     let scrolll = document.querySelector(".tela_1").scrollIntoView();
     console.log(asc);
+}
+function voltarInicial2() {
+  
+    resetar_tela3_style();
+    iniciar_site();
+   
 }
 
 // Tela 3 - Montar quizz do Usuario
@@ -499,6 +507,7 @@ function criar_answers() {
                                         }
                                     ]
                                 }
+
                             } else {
                                 lista_post_quizz.questions[i] = {
                                     title: texto_pergunta,
@@ -520,6 +529,7 @@ function criar_answers() {
                                         }
                                     ]
                                 }
+
                             }
                         } else {
                             lista_post_quizz.questions[i] = {
@@ -537,6 +547,7 @@ function criar_answers() {
                                     }
                                 ]
                             }
+
                         }
                     } else {
                         alert(`Na pergunta ${i} deve conter pelo menos uma resposta e uma imagem errada `);
@@ -547,34 +558,145 @@ function criar_answers() {
                     alert(
                         `Na pergunta ${i} correta tem que conter um texto e uma imagem em URL`
                     );
-                    i = questions_usuario_quizz.length;
+                    i = questions_usuario_quizz;
 
                 }
             } else {
                 alert(`Na pergunta ${i} deve conter uma cor como #zzzzzz`);
-                i = questions_usuario_quizz.length;
+                i = questions_usuario_quizz;
                 console.log(cor_pergunta);
             }
         } else {
             alert(`Na pergunta ${i} o texto da pergunta deve conter mais q 20 caracteres`);
-            i = questions_usuario_quizz.length;
+            i = questions_usuario_quizz;
             console.log(texto_pergunta);
         }
+
+
     }
     console.log(lista_post_quizz)
+    
+    implementar_tela_3_3()
+}
+
+function implementar_tela_3_3() {
+    resetar_tela3_style();
+    main.innerHTML = `
+    <div class="tela_3">
+    <ul class="comeco">
+      <div class="titulo_criar_nivel">
+        <h2>Agora, decida os niveis</h2>
+      </div>
+      <div class="niveis_usuarios">
+        
+      </div>
+      <button onclick="finalizar_quizz_usuario()"><p>Finalizar Quizz</p></button>
+    </ul>
+  </div>
+    `;
     criar_levels()
 }
 
+
 // Criar niveis pare ser mostrado no final do quizz
 function criar_levels() {
+        let quantidade_niveis = document.querySelector(".tela_3 ul .niveis_usuarios")
     for (let i = 0; i < levels_usuario_quizz; i++) {
-
+        let n = i + 1
+        quantidade_niveis.innerHTML += `
+        <div id="n_user_${i}" class="niveis_usuarios_box">
+          <h2>Nível ${n}</h2>
+          <input type="text" id="n_0" placeholder="Título do nível">
+          <input type="text" id="n_1" placeholder="% de acerto mínima">
+          <input type="url" id="n_2" placeholder="URL da imagem do nível">
+          <input type="text" id="n_3" placeholder="Descrição do nível">
+        </div>
+        `
     }
 }
 
 
+// Criar niveis pare ser mostrado no final do quizz
+function finalizar_quizz_usuario() {
+    for (let i = 0; i < levels_usuario_quizz; i++) {
+        let verificar_respostas = document.querySelector(`.tela_3 ul .niveis_usuarios  #n_user_${i}`)
+        let texto_nivel = verificar_respostas.querySelector(`#n_0`).value;
+        let acertos_nivel = Number(verificar_respostas.querySelector(`#n_1`).value);
+        let url_nivel = verificar_respostas.querySelector(`#n_2`).value;
+        let descrição_nivel = verificar_respostas.querySelector(`#n_3`).value;
+        let n = i+1
+        if (texto_nivel.length >= 10) {
+            if (acertos_nivel >= 0 && acertos_nivel <= 100) {
+                if (url_nivel) {
+                    if (descrição_nivel.length >= 30) {
+                        lista_post_quizz.levels[i] = {
+                            title: texto_nivel,
+                            image: url_nivel,
+                            text: descrição_nivel,
+                            minValue: acertos_nivel
+                        }
+                    }else{
+                        alert(`No nivel ${n} precisa ter a descrição com mais de 30 caracteres`)
+                        i = levels_usuario_quizz;
+                    }
+                }else{
+                    alert(`No nivel ${n} precisa ter a imagem no formato de URL`)
+                    i = levels_usuario_quizz;
+                }
+            }else{
+                alert(`No nivel ${n} precisa ter o numero de acertos entre 0 a 100`)
+                i = levels_usuario_quizz;
+            }
+        }else{
+            alert(`No nivel ${n} precisa ter o título com mais de 10 caracteres`)
+            i = levels_usuario_quizz;
+        }
+    }
+console.log(lista_post_quizz)
+postar_lista_usuario()
+}
+
+function postar_lista_usuario(){
+   const prom = axios.post(`${API}`,lista_post_quizz);
+    prom.then(implementar_tela_3_4())
+    prom.then(quizz_usuario())
+
+    lista_quizz_usuario[r] = lista_post_quizz
+    r++
+}
 
 
+   function implementar_tela_3_4() {
+    resetar_tela3_style()
+    let listar_img_quizz = lista_post_quizz.image;
+    let listar_title_quizz = lista_post_quizz.title;
+    
+    main.innerHTML = `
+    <div class="tela_3">
+    <ul class="comeco">
+      <div class="titulo_criar_nivel">
+        <h2>Seu quizz está pronto</h2>
+      </div>
+      <ul>
+        <div id="quizz_${r}" class="quizz" onClick = Mudar_tela_quizz(this) style="
+                background:linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%),
+                    url(${listar_img_quizz});
+                    background-size: cover;
+                    background-position: center;
+                ">
+                    <h3>${listar_title_quizz}</h3>
+                </div>
+      </ul>
+      <button onclick="ir_quizz_usuario()"><p>Acessar Quizz</p></button>
+      <div class="botao-voltarinicial" onclick="voltarInicial2()"><p>Voltar pra home</p></div>
+    </ul>
+   </div>
+    `
+}
+
+function quizz_usuario(promessa){
+    console.log(promessa)
+}
 
 
 // Tela 3 - Montar quizz do Usuario
