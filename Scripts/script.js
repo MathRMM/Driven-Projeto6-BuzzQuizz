@@ -254,7 +254,7 @@ function implementar_finalizador() {
             </div>
             <div class="conteudo-fim">
             <img src=${quizz.levels[i].image}>
-            <p class="texto-fim">${quizz.levels[i].text}</p>            
+            <p class="texto-fim">${quizz.levels[i].text}</p>  e          
             </div>
             </div>            
             `;
@@ -265,18 +265,26 @@ function implementar_finalizador() {
     }
 }
 function reiniciarQuizz() {
-    let contadorNota = 0;
-    let nota = 0;
-    let asc = 0;
+    contadorNota = 0;
+    nota = 0;
+    asc = quizz.questions.length - (quizz.questions.length - 2);
     let addBotao = document.querySelector("footer");
         addBotao.innerHTML = ``;
     resetar_tela2_style();
     implementar_tela_2();
+    console.log(asc);
 }
 
 function voltarInicial() {
+    contadorNota = 0;
+    nota = 0;
+    asc = quizz.questions.length - (quizz.questions.length - 2);
+    let addBotao = document.querySelector("footer");
+        addBotao.innerHTML = ``;
     resetar_tela2_style();
     iniciar_site();
+    let scrolll = document.querySelector(".tela_2").scrollIntoView();
+    console.log(asc);
 }
 
 
