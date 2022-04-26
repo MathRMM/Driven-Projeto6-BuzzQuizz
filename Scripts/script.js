@@ -138,6 +138,8 @@ function resetar_tela3_style() {
 //Tela 2 - Quizz
 
 
+
+
 function selecionarResposta(elemento) {
     console.log(elemento.querySelector(".true"));
 
