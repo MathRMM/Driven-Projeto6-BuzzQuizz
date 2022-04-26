@@ -3,7 +3,7 @@
 const API = "https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes";
 const main = document.querySelector("main");
 const elementoQueQueroQueApareca = document.querySelector("ul");
-let lista_quizz_usuario =[];
+let lista_quizz_usuario = [];
 let lista_quizz_api = [];
 let lista_post_quizz = [];
 let title_usuario_quizz;
@@ -55,7 +55,7 @@ function lista_quizz() {
 
 function implementar_quizz(promisse) {
     const contain_ul = document.querySelector("ul");
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < promisse.length || i < 12; i++) {
         let listar_img_quizz = promisse.data[i].image;
         let listar_title_quizz = promisse.data[i].title;
         let listar_id_quizz = promisse.data[i].id;
@@ -74,7 +74,7 @@ function implementar_quizz(promisse) {
 }
 
 function selecionar_tela_quizzusuario() {
-    if (lista_quizz_usuario == !undefined) {
+    if (lista_quizz_usuario[0] !== undefined) {
         com_quizz_usuario();
     } else {
         sem_quizz_usuario();
@@ -96,22 +96,28 @@ function sem_quizz_usuario() {
 //precisa ser mudada
 function com_quizz_usuario() {
     const contain_comQuiz = document.querySelector(".superior");
-    contain_comQuiz.innerHTML += `
-    <div class="quizz_usuario">
-          <h2>Seus Quizzes</h2>
-          <span>
-            <ion-icon name="add-circle-sharp" onclick="Mudar_tela_criar()"></ion-icon>
-          </span>
-            <div id="a8097" class="quizz" onclick="Mudar_tela_quizz(this)">
-              <h3>League of Legends: O teste definitivo</h3>
+    for (let i = 0; i < lista_quizz_usuario.length; i++) {
+        let listar_img_quizz = lista_quizz_usuario[i].image;
+        let listar_title_quizz = lista_quizz_usuario[i].title;
+        contain_comQuiz.innerHTML += `
+        <div class="quizz_usuario">
+            <h2>Seus Quizzes</h2>
+            <span>
+                <ion-icon name="add-circle-sharp" onclick="Mudar_tela_criar()"></ion-icon>
+            </span>
+            <div id="quizz_${i+1}" class="quizz" onClick = Mudar_tela_quizz(this) style="
+            background:linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%),
+                url(${listar_img_quizz});
+                background-size: cover;
+                background-position: center;
+            ">
+                <h3>${listar_title_quizz}</h3>
             </div>
-            <div id="a8097" class="quizz" onclick="Mudar_tela_quizz(this)">
-              <h3>League of Legends: O teste definitivo</h3>
-            </div>
-           
             
-        </div>
-    `;
+                
+            </div>
+        `;
+    }
 }
 
 function resetar_tela1_style() {
@@ -261,12 +267,13 @@ function questoes_quizz() {
     }
 
 
-console.log(quizz.levels);
-scrollar();
+    console.log(quizz.levels);
+    scrollar();
 
-function scrollar() {
-    let scrolll = document.querySelector(".tela_2").scrollIntoView();
-}}
+    function scrollar() {
+        let scrolll = document.querySelector(".tela_2").scrollIntoView();
+    }
+}
 
 
 function implementar_finalizador() {
@@ -291,7 +298,7 @@ function implementar_finalizador() {
     let addBotao = document.querySelector("footer");
     addBotao.innerHTML = `<div class="botao-reiniciar" onclick="reiniciarQuizz()"><p> Reiniciar Quizz<p></div>
     <div class="botao-voltarinicial" onclick="voltarInicial()"><p>Voltar pra home</p></div>`
-    }
+}
 
 
 function reiniciarQuizz() {
@@ -316,11 +323,12 @@ function voltarInicial() {
     let scrolll = document.querySelector(".tela_1").scrollIntoView();
     console.log(asc);
 }
+
 function voltarInicial2() {
-  
+
     resetar_tela3_style();
     iniciar_site();
-   
+
 }
 
 // Tela 3 - Montar quizz do Usuario
@@ -356,8 +364,10 @@ function criar_quizz() {
     );
     levels_usuario_quizz = Number(document.querySelector(".tela_3 #i_3").value);
 
+    let regex_url = url_usuario_quizz.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+
     if (title_usuario_quizz.length >= 20 && title_usuario_quizz.length <= 60) {
-        if (url_usuario_quizz) { //nao consegui achar um jeito para validar o url
+        if (regex_url !== null) { //nao consegui achar um jeito para validar o url
             if (questions_usuario_quizz >= 3) {
                 if (levels_usuario_quizz >= 2) {
                     lista_post_quizz = {
@@ -440,7 +450,7 @@ function implementar_quantidades_perguntas() {
             <div id="p_user_${i}" class="pergutas1_usuario_box">
                 <h2>Pergunta ${n}</h2>
                 <input type="text" id="p_0" placeholder="Texto da pergunta">
-                <input type="text" id="p_1" placeholder="Cor de fundo da pergunta">
+                <input type="txt" id="p_1" placeholder="Cor de fundo da pergunta">
                 
                 <h2>Resposta correta</h2>
                 <input type="text" id="resposta_t_1" placeholder="Resposta correta">
@@ -463,7 +473,8 @@ function implementar_quantidades_perguntas() {
 
 //pega as respostas da pagina e coloca na lista para ser postado
 function criar_answers() {
-    for (let i = 0; i < questions_usuario_quizz; i++) {
+    let i = 0
+    for ( i; i < questions_usuario_quizz; i++) {
         let verificar_respostas = document.querySelector(
             `.tela_3 ul .perguntas_usuarios #p_user_${i}`
         );
@@ -477,13 +488,18 @@ function criar_answers() {
         let url_errada2 = verificar_respostas.querySelector(`#url_f_2`).value;
         let resp_errada3 = verificar_respostas.querySelector(`#resposta_f_3`).value;
         let url_errada3 = verificar_respostas.querySelector(`#url_f_3`).value;
+        let regex_correta = url_correta.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+        let regex_i_1 = url_errada1.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+        let regex_i_2 = url_errada2.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+        let regex_i_3 = url_errada3.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+        let regex_cor = cor_pergunta.match(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/);
 
         if (texto_pergunta.length > 20) {
-            if (cor_pergunta !== "") {
-                if (resp_correta !== "" || url_correta !== "") {
-                    if (resp_errada1 !== "" || url_errada1 !== "") {
-                        if (resp_errada2 !== "" || url_errada2 !== "") {
-                            if (resp_errada3 !== "" || url_errada3 !== "") {
+            if (regex_cor !== null) {
+                if (resp_correta !== "" || regex_correta !== null) {
+                    if (resp_errada1 !== "" || regex_i_1 !== null) {
+                        if (resp_errada2 !== "" || regex_i_2 !== null) {
+                            if (resp_errada3 !== "" || regex_i_3 !== null) {
                                 lista_post_quizz.questions[i] = {
                                     title: texto_pergunta,
                                     color: cor_pergunta,
@@ -577,8 +593,10 @@ function criar_answers() {
 
     }
     console.log(lista_post_quizz)
-    
-    implementar_tela_3_3()
+
+    if( i === questions_usuario_quizz){
+        implementar_tela_3_3();
+    }
 }
 
 function implementar_tela_3_3() {
@@ -602,7 +620,7 @@ function implementar_tela_3_3() {
 
 // Criar niveis pare ser mostrado no final do quizz
 function criar_levels() {
-        let quantidade_niveis = document.querySelector(".tela_3 ul .niveis_usuarios")
+    let quantidade_niveis = document.querySelector(".tela_3 ul .niveis_usuarios")
     for (let i = 0; i < levels_usuario_quizz; i++) {
         let n = i + 1
         quantidade_niveis.innerHTML += `
@@ -626,7 +644,7 @@ function finalizar_quizz_usuario() {
         let acertos_nivel = Number(verificar_respostas.querySelector(`#n_1`).value);
         let url_nivel = verificar_respostas.querySelector(`#n_2`).value;
         let descrição_nivel = verificar_respostas.querySelector(`#n_3`).value;
-        let n = i+1
+        let n = i + 1
         if (texto_nivel.length >= 10) {
             if (acertos_nivel >= 0 && acertos_nivel <= 100) {
                 if (url_nivel) {
@@ -637,42 +655,42 @@ function finalizar_quizz_usuario() {
                             text: descrição_nivel,
                             minValue: acertos_nivel
                         }
-                    }else{
+                    } else {
                         alert(`No nivel ${n} precisa ter a descrição com mais de 30 caracteres`)
                         i = levels_usuario_quizz;
                     }
-                }else{
+                } else {
                     alert(`No nivel ${n} precisa ter a imagem no formato de URL`)
                     i = levels_usuario_quizz;
                 }
-            }else{
+            } else {
                 alert(`No nivel ${n} precisa ter o numero de acertos entre 0 a 100`)
                 i = levels_usuario_quizz;
             }
-        }else{
+        } else {
             alert(`No nivel ${n} precisa ter o título com mais de 10 caracteres`)
             i = levels_usuario_quizz;
         }
     }
-console.log(lista_post_quizz)
-postar_lista_usuario()
+    console.log(lista_post_quizz)
+    postar_lista_usuario()
 }
 
-function postar_lista_usuario(){
-   const prom = axios.post(`${API}`,lista_post_quizz);
-    prom.then(implementar_tela_3_4())
-    prom.then(quizz_usuario())
+function postar_lista_usuario() {
+    const prom = axios.post(`${API}`, lista_post_quizz);
+    prom.then(implementar_tela_3_4)
+    prom.then(quizz_usuario)
 
     lista_quizz_usuario[r] = lista_post_quizz
     r++
 }
 
 
-   function implementar_tela_3_4() {
+function implementar_tela_3_4() {
     resetar_tela3_style()
     let listar_img_quizz = lista_post_quizz.image;
     let listar_title_quizz = lista_post_quizz.title;
-    
+
     main.innerHTML = `
     <div class="tela_3">
     <ul class="comeco">
@@ -689,16 +707,18 @@ function postar_lista_usuario(){
                     <h3>${listar_title_quizz}</h3>
                 </div>
       </ul>
-      <button onclick="ir_quizz_usuario()"><p>Acessar Quizz</p></button>
+      <button onclick="implementar_quizz(lista_post_quizz)"><p>Acessar Quizz</p></button>
       <div class="botao-voltarinicial" onclick="voltarInicial2()"><p>Voltar pra home</p></div>
     </ul>
    </div>
     `
 }
 
-function quizz_usuario(promessa){
+function quizz_usuario(promessa) {
     console.log(promessa)
 }
+
+
 
 
 // Tela 3 - Montar quizz do Usuario
