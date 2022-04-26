@@ -74,7 +74,7 @@ function implementar_quizz(promisse) {
 }
 
 function selecionar_tela_quizzusuario() {
-    if (lista_quizz_usuario == !undefined) {
+    if (lista_quizz_usuario[0] !== undefined) {
         com_quizz_usuario();
     } else {
         sem_quizz_usuario();
@@ -96,22 +96,28 @@ function sem_quizz_usuario() {
 //precisa ser mudada
 function com_quizz_usuario() {
     const contain_comQuiz = document.querySelector(".superior");
-    contain_comQuiz.innerHTML += `
-    <div class="quizz_usuario">
-          <h2>Seus Quizzes</h2>
-          <span>
-            <ion-icon name="add-circle-sharp" onclick="Mudar_tela_criar()"></ion-icon>
-          </span>
-            <div id="a8097" class="quizz" onclick="Mudar_tela_quizz(this)">
-              <h3>League of Legends: O teste definitivo</h3>
+      for(let i=0; i < lista_quizz_usuario.length; i++) {
+        let listar_img_quizz = lista_quizz_usuario[i].image;
+        let listar_title_quizz = lista_quizz_usuario[i].title;
+        contain_comQuiz.innerHTML += `
+        <div class="quizz_usuario">
+            <h2>Seus Quizzes</h2>
+            <span>
+                <ion-icon name="add-circle-sharp" onclick="Mudar_tela_criar()"></ion-icon>
+            </span>
+            <div id="quizz_${i+1}" class="quizz" onClick = Mudar_tela_quizz(this) style="
+            background:linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%),
+                url(${listar_img_quizz});
+                background-size: cover;
+                background-position: center;
+            ">
+                <h3>${listar_title_quizz}</h3>
             </div>
-            <div id="a8097" class="quizz" onclick="Mudar_tela_quizz(this)">
-              <h3>League of Legends: O teste definitivo</h3>
-            </div>
-           
             
-        </div>
-    `;
+                
+            </div>
+        `;
+    }
 }
 
 function resetar_tela1_style() {
