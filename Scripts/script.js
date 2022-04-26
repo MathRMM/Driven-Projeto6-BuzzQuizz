@@ -3,7 +3,7 @@
 const API = "https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes";
 const main = document.querySelector("main");
 const elementoQueQueroQueApareca = document.querySelector("ul");
-let lista_quizz_usuario = [];
+let lista_quizz_usuario =[];
 let lista_quizz_api = [];
 let lista_post_quizz = [];
 let title_usuario_quizz;
@@ -74,7 +74,7 @@ function implementar_quizz(promisse) {
 }
 
 function selecionar_tela_quizzusuario() {
-    if (lista_quizz_usuario[0] == !undefined) {
+    if (lista_quizz_usuario == !undefined) {
         com_quizz_usuario();
     } else {
         sem_quizz_usuario();
@@ -636,9 +636,9 @@ postar_lista_usuario()
 function postar_lista_usuario(){
    const prom = axios.post(`${API}`,lista_post_quizz);
     prom.then(implementar_tela_3_4())
-    .catch(quizz_usuario())
+    prom.then(quizz_usuario())
 
-    lista_quizz_usuario = lista_post_quizz
+    lista_quizz_usuario[r] = lista_post_quizz
     r++
 }
 
@@ -672,7 +672,7 @@ function postar_lista_usuario(){
 }
 
 function quizz_usuario(promessa){
-    console.log(promessa.response)
+    console.log(promessa)
 }
 
 
