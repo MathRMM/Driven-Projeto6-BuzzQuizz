@@ -23,7 +23,9 @@ let resp_errada2
 let url_errada2
 let resp_errada3
 let url_errada3
-
+let contadorNota = 0;
+let nota = 0;
+let asc = 0;
 //Parte da pagina do quizz
 
 //funções
@@ -89,7 +91,8 @@ function sem_quizz_usuario() {
         </div>
     `;
 }
-
+// coloca o quizz do cliente na tela inicial,
+//precisa ser mudada
 function com_quizz_usuario() {
     const contain_comQuiz = document.querySelector(".superior");
     contain_comQuiz.innerHTML += `
@@ -132,8 +135,11 @@ function resetar_tela3_style() {
 }
 
 //Tela 2 - Quizz
+
+
 function selecionarResposta(elemento) {
-    console.log(elemento);
+    console.log(elemento.querySelector(".true"));
+
 
     elemento.classList.remove("auxiliar");
     elemento.querySelector(".opcao-resposta").classList.remove("oculta");
@@ -143,6 +149,11 @@ function selecionarResposta(elemento) {
     const pai = elemento.parentNode.parentNode;
     console.log(pai);
 
+    if (elemento.querySelector(".true") !== null) {
+        contadorNota++;
+    }
+    console.log(contadorNota);
+
     for (let i = 0; i < 3; i++) {
         let aux = pai.querySelector(".auxiliar");
         if (aux !== null) {
@@ -151,13 +162,23 @@ function selecionarResposta(elemento) {
             aux.querySelector(".opcao-resposta").classList.remove("oculta");
         }
     }
-    r++;
+    if (asc <= quizz.questions.length) {
+        setTimeout(scrollar, 2000);
 
-    setTimeout(scrollar, 2000);
+        function scrollar() {
+            let scrolll = document.querySelector(`.caixa-quizz:nth-child(${asc})`).scrollIntoView();
+            asc++;
+        }
+    } else {
+        implementar_finalizador();
+        setTimeout(scrollar, 2000);
 
-    function scrollar() {
-        let scrolll = document.querySelector(`#a${r}`).scrollIntoView();
+        function scrollar() {
+            let scrolll = document.querySelector(".finalizador").scrollIntoView();
+        }
     }
+
+
 }
 
 function comparador() {
@@ -166,17 +187,22 @@ function comparador() {
 
 function Mudar_tela_quizz(paramentro) {
     resetar_tela1_style();
-    let id_quizz_selecionado = paramentro.id;
+    let id_quizz_selecionado = paramentro.id
+    console.log(id_quizz_selecionado)
+
 
     for (let i = 0; i < lista_quizz_api.length; i++) {
-        let id_quizz = "quizz_" + lista_quizz_api[i].id;
+        let id_quizz = "quizz_" + lista_quizz_api[i].id
         if (id_quizz === id_quizz_selecionado) {
-            quizz = lista_quizz_api[i];
-            console.log(quizz.questions.length);
+            quizz = lista_quizz_api[i]
+            console.log(quizz.questions.length)
         }
     }
-    implementar_tela_2();
+
+    asc = quizz.questions.length - (quizz.questions.length - 2);
+    implementar_tela_2()
 }
+
 
 function implementar_tela_2() {
     main.innerHTML = `
@@ -192,6 +218,8 @@ function implementar_tela_2() {
         </div>
         <div class="caixa-auxiliar">
         </div>
+        <div class="finalizador">
+        </div>
     </div>
   `;
     questoes_quizz();
@@ -199,10 +227,12 @@ function implementar_tela_2() {
 
 function questoes_quizz() {
     let adicionarQuizz = document.querySelector(".caixa-auxiliar");
-
+    
     for (j = 0; j < quizz.questions.length; j++) {
-        let sorteador = quizz.questions.sort(comparador);
-        adicionarQuizz.innerHTML += `<div id="a${j}" class="caixa-quizz">        
+        let sorteador = quizz.questions;
+        sorteador[j].answers.sort(comparador)
+        adicionarQuizz.innerHTML +=
+            `<div id="a${j}" class="caixa-quizz">        
         <div class="caixa-pergunta corum" style = "background-color:${sorteador[j].color} ;"><h2>${sorteador[j].title}</h2></div>
         <div class="caixa-duas-opcoes um">      
         </div>
@@ -215,9 +245,53 @@ function questoes_quizz() {
         for (let i = 0; i < sorteador[j].answers.length; i++) {
             adicionarPerguntasum.innerHTML += `<div class="caixa-opcao auxiliar" onclick="selecionarResposta(this)">
         <img src=${sorteador[j].answers[i].image}>
-    <p class="opcao-resposta ${sorteador[j].answers[i].isCorrectAnswer} oculta">${sorteador[j].answers[i].text}</p>`;
-        }
+        <p class="opcao-resposta ${sorteador[j].answers[i].isCorrectAnswer} oculta">${sorteador[j].answers[i].text}</p>`;
     }
+}
+console.log(quizz.levels);
+scrollar();
+
+function scrollar() {
+    let scrolll = document.querySelector(".tela_2").scrollIntoView();
+}
+}
+
+function implementar_finalizador() {
+
+nota = Math.round((contadorNota * 100) / quizz.questions.length);
+console.log(nota);
+for (let i = (quizz.levels.length - 1); i >= 0; i = i - 1) {
+    if (nota >= quizz.levels[i].minValue) {
+        let addFim = document.querySelector(".finalizador");
+        addFim.innerHTML = `      
+        <div class="img-topo-fim">
+            <h2> ${nota}% de acerto: ${quizz.levels[i].title} </h2>
+        </div>
+        <div class="conteudo-fim">
+        <img src=${quizz.levels[i].image}>
+        <p class="texto-fim">${quizz.levels[i].text}</p>            
+        </div>
+        </div>            
+        `;
+    }
+    let addBotao = document.querySelector("footer");
+    addBotao.innerHTML = `<div class="botao-reiniciar" onclick="reiniciarQuizz()"><p> Reiniciar Quizz<p></div>
+    <div class="botao-voltarinicial" onclick="voltarInicial()"><p>Voltar pra home</p></div>`
+}
+}
+function reiniciarQuizz() {
+let contadorNota = 0;
+let nota = 0;
+let asc = 0;
+let addBotao = document.querySelector("footer");
+    addBotao.innerHTML = ``;
+resetar_tela2_style();
+implementar_tela_2();
+}
+
+function voltarInicial() {
+resetar_tela2_style();
+iniciar_site();
 }
 
 // Tela 3 - Montar quizz do Usuario
@@ -480,5 +554,10 @@ function criar_levels(){
 }
 
 
+   
+
+
+
+// Tela 3 - Montar quizz do Usuario
 //chamar função
 iniciar_site();
