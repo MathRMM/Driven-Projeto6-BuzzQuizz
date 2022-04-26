@@ -5,9 +5,24 @@ const main = document.querySelector("main");
 const elementoQueQueroQueApareca = document.querySelector("ul");
 let lista_quizz_usuario = [];
 let lista_quizz_api = [];
-let quizz
+let lista_post_quizz = [];
+let title_usuario_quizz;
+let url_usuario_quizz;
+let questions_usuario_quizz;
+let levels_usuario_quizz;
+let quizz;
 let img_quizz;
 let r = -1;
+let texto_pergunta
+let cor_pergunta
+let resp_correta
+let url_correta
+let resp_errada1
+let url_errada1
+let resp_errada2
+let url_errada2
+let resp_errada3
+let url_errada3
 
 //Parte da pagina do quizz
 
@@ -53,7 +68,6 @@ function implementar_quizz(promisse) {
                 </div>
             `;
     }
-    console.log(lista_quizz_api[2].id);
 }
 
 function selecionar_tela_quizzusuario() {
@@ -96,14 +110,24 @@ function com_quizz_usuario() {
     `;
 }
 
-function Mudar_tela_criar() {
-    resetar_tela1_style();
-}
-
 function resetar_tela1_style() {
     const tela_1 = document.querySelector(".tela_1");
     if (tela_1.parentNode) {
         tela_1.parentNode.removeChild(tela_1);
+    }
+}
+
+function resetar_tela2_style() {
+    const tela_2 = document.querySelector(".tela_2");
+    if (tela_2.parentNode) {
+        tela_2.parentNode.removeChild(tela_2);
+    }
+}
+
+function resetar_tela3_style() {
+    const tela_3 = document.querySelector(".tela_3");
+    if (tela_3.parentNode) {
+        tela_3.parentNode.removeChild(tela_3);
     }
 }
 
@@ -127,14 +151,12 @@ function selecionarResposta(elemento) {
             aux.querySelector(".opcao-resposta").classList.remove("oculta");
         }
     }
-    r++
+    r++;
 
     setTimeout(scrollar, 2000);
 
     function scrollar() {
-        let scrolll = document
-            .querySelector(`#a${r}.caixa-quizz`)
-            .scrollIntoView();
+        let scrolll = document.querySelector(`#a${r}`).scrollIntoView();
     }
 }
 
@@ -144,22 +166,19 @@ function comparador() {
 
 function Mudar_tela_quizz(paramentro) {
     resetar_tela1_style();
-    let id_quizz_selecionado = paramentro.id
-    console.log(id_quizz_selecionado)
-    
+    let id_quizz_selecionado = paramentro.id;
 
-     for(let i=0; i < lista_quizz_api.length ; i++){
-        let id_quizz = "quizz_"+ lista_quizz_api[i].id
-        if(id_quizz === id_quizz_selecionado){
-            quizz = lista_quizz_api[i]
-            console.log(quizz.questions.length)
+    for (let i = 0; i < lista_quizz_api.length; i++) {
+        let id_quizz = "quizz_" + lista_quizz_api[i].id;
+        if (id_quizz === id_quizz_selecionado) {
+            quizz = lista_quizz_api[i];
+            console.log(quizz.questions.length);
         }
-    } 
-    implementar_tela_2()
+    }
+    implementar_tela_2();
 }
-  
-   
-function implementar_tela_2(){
+
+function implementar_tela_2() {
     main.innerHTML = `
   <div class="tela_2">
         <div class="img-topo" style="
@@ -175,16 +194,15 @@ function implementar_tela_2(){
         </div>
     </div>
   `;
-  questoes_quizz();
+    questoes_quizz();
 }
 
-function questoes_quizz(){
-        let adicionarQuizz = document.querySelector(".caixa-auxiliar");
+function questoes_quizz() {
+    let adicionarQuizz = document.querySelector(".caixa-auxiliar");
 
-        for (j = 0; j < quizz.questions.length; j++) {
-            let sorteador = quizz.questions
-             adicionarQuizz.innerHTML +=
-                `<div id="a${j}" class="caixa-quizz">        
+    for (j = 0; j < quizz.questions.length; j++) {
+        let sorteador = quizz.questions.sort(comparador);
+        adicionarQuizz.innerHTML += `<div id="a${j}" class="caixa-quizz">        
         <div class="caixa-pergunta corum" style = "background-color:${sorteador[j].color} ;"><h2>${sorteador[j].title}</h2></div>
         <div class="caixa-duas-opcoes um">      
         </div>
@@ -192,18 +210,275 @@ function questoes_quizz(){
         </div>
         </div>`;
 
-            let adicionarPerguntasum = adicionarQuizz.querySelector(`#a${j} .um`);
+        let adicionarPerguntasum = adicionarQuizz.querySelector(`#a${j} .um`);
 
-            for (let i = 0; i < sorteador[j].answers.length; i++) {
-                adicionarPerguntasum.innerHTML += `<div class="caixa-opcao auxiliar" onclick="selecionarResposta(this)">
+        for (let i = 0; i < sorteador[j].answers.length; i++) {
+            adicionarPerguntasum.innerHTML += `<div class="caixa-opcao auxiliar" onclick="selecionarResposta(this)">
         <img src=${sorteador[j].answers[i].image}>
-    <p class="opcao-resposta ${sorteador[j].answers[i].isCorrectAnswer} oculta">Resposta ${i}</p>`;
-            }            
-        } 
-       
+    <p class="opcao-resposta ${sorteador[j].answers[i].isCorrectAnswer} oculta">${sorteador[j].answers[i].text}</p>`;
+        }
     }
+}
 
 // Tela 3 - Montar quizz do Usuario
+function Mudar_tela_criar() {
+    resetar_tela1_style();
+    implementar_tela_3();
+}
+// coloca a tela 3 parte 1 para ser preenchida
+function implementar_tela_3() {
+    main.innerHTML = `
+        <div class="tela_3">
+        <ul class="comeco">
+          <h2>Comece pelo começo</h2>
+          <div class="comeco_box">
+            <input type="text" id="i_0" placeholder="Título do seu quizz">
+            <input type="url" id="i_1" placeholder="URL da imagem do seu quizz">
+            <input type="number" id="i_2" placeholder="Quantidade de perguntas do quizz">
+            <input type="number" id="i_3" placeholder="Quantidade de niveis do quizz">
+          </div>
+          <button type="submit" class="prosseguir" onClick= criar_quizz()> <p>Prosseguir para criar perguntas</p> </button>
+        </ul>
+        
+      </div>
+      `;
+}
+ // Inicio do processo de ciração
+ //difinições da lista que sera postada no servidor
+function criar_quizz() {
+    title_usuario_quizz = document.querySelector(".tela_3 #i_0").value;
+    url_usuario_quizz = document.querySelector(".tela_3 #i_1").value;
+    questions_usuario_quizz = Number(
+        document.querySelector(".tela_3 #i_2").value
+    );
+    levels_usuario_quizz = Number(document.querySelector(".tela_3 #i_3").value);
+
+    if (title_usuario_quizz.length >= 20 && title_usuario_quizz.length <= 60) {
+        if (url_usuario_quizz) { //nao consegui achar um jeito para validar o url
+            if (questions_usuario_quizz >= 3) {
+                if (levels_usuario_quizz >= 2) {
+                    lista_post_quizz = {
+                        title: `${title_usuario_quizz}`,
+                        image: `${url_usuario_quizz}`,
+                        questions: [],
+                        levels: [],
+                    };
+
+                    quantidade_questions_usuario();
+                    quantidade_levels_usuario();
+                    console.log(questions_usuario_quizz);
+                    console.log(lista_post_quizz);
+
+                    implementar_tela_3_2();
+                } else {
+                    alert("Deve ter pelo menos 2 niveis");
+                }
+            } else {
+                alert("Deve ter pelo menos 3 perguntas");
+            }
+        } else {
+            alert("A imagem tem que ser em URL");
+            console.log(url_usuario_quizz);
+        }
+    } else {
+        alert("O título deve ter entre 20 a 60 caracteres");
+        console.log(title_usuario_quizz.length);
+    }
+}
+//coloca as questões para serem preenchidas depois
+function quantidade_questions_usuario() {
+    for (let i = 0; i < questions_usuario_quizz; i++) {
+        lista_post_quizz.questions[i] = {
+            title: ``,
+            color: ``,
+            answers: [],
+        };
+    }
+}
+//coloca os niveis para serem preenchidos depois
+function quantidade_levels_usuario() {
+    for (let i = 0; i < levels_usuario_quizz; i++) {
+        lista_post_quizz.levels[i] = {
+            title: `Título do nível 1`,
+            image: `https://http.cat/411.jpg`,
+            text: `Descrição do nível 1`,
+            minValue: 0
+        };
+    }
+}
+//Coloca tela 3 parte para montar as perguntas
+function implementar_tela_3_2() {
+    resetar_tela3_style();
+    main.innerHTML = `
+    <div class="tela_3">
+      <ul class="comeco">
+        <div class="titulo_criar_pergunta">
+          <h2>Crie suas perguntas</h2>
+        </div>
+        <div class="perguntas_usuarios">
+          
+        </div>
+        <button onclick="criar_answers()"><p>Prosseguir para criar níveis</p></button>
+      </ul>
+    </div>
+    `;
+    implementar_quantidades_perguntas();
+}
+
+//função para aparecer a quantidade de perguntas no site para ser montadas
+function implementar_quantidades_perguntas() {
+    let quantidade_perguntas = document.querySelector(
+        ".tela_3 ul .perguntas_usuarios"
+    );
+
+    for (let i = 0; i < questions_usuario_quizz; i++) {
+        let n = i + 1;
+        quantidade_perguntas.innerHTML += `
+            <div id="p_user_${i}" class="pergutas1_usuario_box">
+                <h2>Pergunta ${n}</h2>
+                <input type="text" id="p_0" placeholder="Texto da pergunta">
+                <input type="text" id="p_1" placeholder="Cor de fundo da pergunta">
+                
+                <h2>Resposta correta</h2>
+                <input type="text" id="resposta_t_1" placeholder="Resposta correta">
+                <input type="url" id="url_t_1" placeholder="URL da imagem">
+              
+                <h2>Resposta incorretas</h2>
+                <div class="incorretas">
+                    <input type="text" id="resposta_f_1" placeholder="Resposta incorreta 1">
+                    <input type="url" id="url_f_1" placeholder="URL da imagem 1">
+                    <input type="text" id="resposta_f_2" placeholder="Resposta incorreta 2">
+                    <input type="url" id="url_f_2" placeholder="URL da imagem 2">
+                    <input type="text" id="resposta_f_3" placeholder="Resposta incorreta 3">
+                    <input type="url" id="url_f_3" placeholder="URL da imagem 3">
+                </div>
+            </div>
+        `;
+    }
+}
+
+
+//pega as respostas da pagina e coloca na lista para ser postado
+function criar_answers() {
+    for (let i = 0; i < questions_usuario_quizz; i++) {
+        let verificar_respostas = document.querySelector(
+            `.tela_3 ul .perguntas_usuarios #p_user_${i}`
+        );
+        let texto_pergunta = verificar_respostas.querySelector(`#p_0`).value;
+        let cor_pergunta = verificar_respostas.querySelector(`#p_1`).value;
+        let resp_correta = verificar_respostas.querySelector(`#resposta_t_1`).value;
+        let url_correta = verificar_respostas.querySelector(`#url_t_1`).value;
+        let resp_errada1 = verificar_respostas.querySelector(`#resposta_f_1`).value;
+        let url_errada1 = verificar_respostas.querySelector(`#url_f_1`).value;
+        let resp_errada2 = verificar_respostas.querySelector(`#resposta_f_2`).value;
+        let url_errada2 = verificar_respostas.querySelector(`#url_f_2`).value;
+        let resp_errada3 = verificar_respostas.querySelector(`#resposta_f_3`).value;
+        let url_errada3 = verificar_respostas.querySelector(`#url_f_3`).value;
+
+        if (texto_pergunta.length > 20) {
+            if (cor_pergunta !== "") {
+                if (resp_correta !== "" || url_correta !== "") {
+                    if (resp_errada1 !== "" || url_errada1 !== "") {
+                        if (resp_errada2 !== "" || url_errada2 !== "") {
+                            if (resp_errada3 !== "" || url_errada3 !== "") {
+                                lista_post_quizz.questions[i] = {
+                                    title: texto_pergunta,
+                                    color: cor_pergunta,
+                                    answers: [{
+                                            text: resp_correta,
+                                            image: url_correta,
+                                            isCorrectAnswer: true
+                                        },
+                                        {
+                                            text: resp_errada1,
+                                            image: url_errada1,
+                                            isCorrectAnswer: false
+                                        },
+                                        {
+                                            text: resp_errada2,
+                                            image: url_errada2,
+                                            isCorrectAnswer: false
+                                        },
+                                        {
+                                            text: resp_errada3,
+                                            image: url_errada3,
+                                            isCorrectAnswer: false
+                                        }
+                                    ]
+                                }
+                            } else {
+                                lista_post_quizz.questions[i] = {
+                                    title: texto_pergunta,
+                                    color: cor_pergunta,
+                                    answers: [{
+                                            text: resp_correta,
+                                            image: url_correta,
+                                            isCorrectAnswer: true
+                                        },
+                                        {
+                                            text: resp_errada1,
+                                            image: url_errada1,
+                                            isCorrectAnswer: false
+                                        },
+                                        {
+                                            text: resp_errada2,
+                                            image: url_errada2,
+                                            isCorrectAnswer: false
+                                        }
+                                    ]
+                                }
+                            }
+                        } else {
+                            lista_post_quizz.questions[i] = {
+                                title: texto_pergunta,
+                                color: cor_pergunta,
+                                answers: [{
+                                        text: resp_correta,
+                                        image: url_correta,
+                                        isCorrectAnswer: true
+                                    },
+                                    {
+                                        text: resp_errada1,
+                                        image: url_errada1,
+                                        isCorrectAnswer: false
+                                    }
+                                ]
+                            }
+                        }
+                    } else {
+                        alert(`Na pergunta ${i} deve conter pelo menos uma resposta e uma imagem errada `);
+                        i = questions_usuario_quizz.length;
+                        console.log(resp_errada1, url_errada1);
+                    }
+                } else {
+                    alert(
+                        `Na pergunta ${i} correta tem que conter um texto e uma imagem em URL`
+                    );
+                    i = questions_usuario_quizz.length;
+
+                }
+            } else {
+                alert(`Na pergunta ${i} deve conter uma cor como #zzzzzz`);
+                i = questions_usuario_quizz.length;
+                console.log(cor_pergunta);
+            }
+        } else {
+            alert(`Na pergunta ${i} o texto da pergunta deve conter mais q 20 caracteres`);
+            i = questions_usuario_quizz.length;
+            console.log(texto_pergunta);
+        }
+    }
+    console.log(lista_post_quizz)
+    criar_levels()
+}
+
+// Criar niveis pare ser mostrado no final do quizz
+function criar_levels(){
+    for(let i =0 ; i < levels_usuario_quizz; i++ ){
+
+    }
+}
+
+
 //chamar função
 iniciar_site();
-
