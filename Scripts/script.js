@@ -227,7 +227,7 @@ function implementar_tela_2() {
 
 function questoes_quizz() {
     let adicionarQuizz = document.querySelector(".caixa-auxiliar");
-    
+
     for (j = 0; j < quizz.questions.length; j++) {
         let sorteador = quizz.questions;
         sorteador[j].answers.sort(comparador)
@@ -242,19 +242,29 @@ function questoes_quizz() {
 
         let adicionarPerguntasum = adicionarQuizz.querySelector(`#a${j} .um`);
 
-        for (let i = 0; i < sorteador[j].answers.length; i++) {
+        for (let i = 0; i < 2; i++) {
             adicionarPerguntasum.innerHTML += `<div class="caixa-opcao auxiliar" onclick="selecionarResposta(this)">
         <img src=${sorteador[j].answers[i].image}>
         <p class="opcao-resposta ${sorteador[j].answers[i].isCorrectAnswer} oculta">${sorteador[j].answers[i].text}</p>`;
+        }
+        if (sorteador[j].answers.length > 2) {
+            let adicionarPerguntasdois = adicionarQuizz.querySelector(`#a${j} .dois`);
+            for (let i = Math.ceil((sorteador[j].answers.length) / 2); i < sorteador[j].answers.length; i++) {
+                adicionarPerguntasdois.innerHTML += `<div class="caixa-opcao auxiliar" onclick="selecionarResposta(this)">
+        <img src=${sorteador[j].answers[i].image}>
+        <p class="opcao-resposta ${sorteador[j].answers[i].isCorrectAnswer} oculta">${sorteador[j].answers[i].text}</p>`;
+            }
+        }
     }
-}
+
+
 console.log(quizz.levels);
 scrollar();
 
 function scrollar() {
     let scrolll = document.querySelector(".tela_2").scrollIntoView();
-}
-}
+}}
+
 
 function implementar_finalizador() {
 
@@ -273,7 +283,7 @@ function implementar_finalizador() {
             </div>
             </div>        
             `;
-        }        
+        }
     }
     let addBotao = document.querySelector("footer");
     addBotao.innerHTML = `<div class="botao-reiniciar" onclick="reiniciarQuizz()"><p> Reiniciar Quizz<p></div>
@@ -285,7 +295,7 @@ function reiniciarQuizz() {
     nota = 0;
     asc = quizz.questions.length - (quizz.questions.length - 2);
     let addBotao = document.querySelector("footer");
-        addBotao.innerHTML = ``;
+    addBotao.innerHTML = ``;
     resetar_tela2_style();
     implementar_tela_2();
     console.log(asc);
@@ -296,7 +306,7 @@ function voltarInicial() {
     nota = 0;
     asc = quizz.questions.length - (quizz.questions.length - 2);
     let addBotao = document.querySelector("footer");
-        addBotao.innerHTML = ``;
+    addBotao.innerHTML = ``;
     resetar_tela2_style();
     iniciar_site();
     let scrolll = document.querySelector(".tela_1").scrollIntoView();
@@ -326,8 +336,8 @@ function implementar_tela_3() {
       </div>
       `;
 }
- // Inicio do processo de ciração
- //difinições da lista que sera postada no servidor
+// Inicio do processo de ciração
+//difinições da lista que sera postada no servidor
 function criar_quizz() {
     title_usuario_quizz = document.querySelector(".tela_3 #i_0").value;
     url_usuario_quizz = document.querySelector(".tela_3 #i_1").value;
@@ -556,14 +566,14 @@ function criar_answers() {
 }
 
 // Criar niveis pare ser mostrado no final do quizz
-function criar_levels(){
-    for(let i =0 ; i < levels_usuario_quizz; i++ ){
+function criar_levels() {
+    for (let i = 0; i < levels_usuario_quizz; i++) {
 
     }
 }
 
 
-   
+
 
 
 

@@ -7,6 +7,7 @@ body {
     font-style: normal;
     background-color: #ffffff;
     margin: 0;
+    padding-top: 70px;
 }
 
 header {
@@ -193,9 +194,21 @@ div.lista-quizz ul {
     margin: 20px 10px;
     border-radius: 15px;
     box-sizing: border-box;
+    
 }
 
-
+.caixa-auxiliar {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fafafa;
+    
+    
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    
+}
 
 .caixa-quizz .caixa-pergunta h2{
     font-weight: 700;
@@ -217,6 +230,7 @@ div.lista-quizz ul {
     font-size: 20px;
     color: #000000;
     margin-top: 15px;
+    word-break: break-word;
 }
 .tela_2 .img-topo {
     width: 100%;
@@ -226,7 +240,7 @@ div.lista-quizz ul {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    margin-top: 60px;
+    
     
     
 }
@@ -245,7 +259,7 @@ div.lista-quizz ul {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    box-sizing: content-box;
+    box-sizing: border-box;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
 }
 .finalizador {
@@ -259,6 +273,7 @@ div.lista-quizz ul {
     flex-wrap: wrap;
     box-sizing: border-box;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    
 }
 .img-topo-fim {
     height: 99px;
@@ -270,6 +285,11 @@ div.lista-quizz ul {
     text-align: center;
     background-color: #EC362D;
     word-break: break-word;
+}
+.img-topo-fim h2{
+    font-weight: 700;
+    font-size: 23px;
+    color: white;
 }
 .conteudo-fim {
     width:100%;
@@ -298,13 +318,14 @@ div.lista-quizz ul {
     justify-content: center;
     text-align: center;
     margin-inline: 7px;
-    
+    word-break: break-all;
+    overflow: hidden;
 }
 
 .caixa-duas-opcoes {
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
+    
     justify-content: space-between;
     margin-top: 20px;
     margin-inline: 7px;    
@@ -339,8 +360,10 @@ div.lista-quizz ul {
 .opcao-resposta.false{
     color: #FF4B4B;
 }
-.oculta {
+
+.opcao-resposta.oculta {
     color: #000000;
+    font-size: 20px;
 }
 .botao-reiniciar {
     display: flex;
@@ -438,6 +461,7 @@ div.lista-quizz ul {
 }
 
 
+
 @media (max-width: 1100px) {
     h4 {        
         font-size: 19px; 
@@ -446,28 +470,33 @@ div.lista-quizz ul {
     .img-topo {        
         height: 142px;        
     }
+    .tela_2 .img-topo {
+        height: 142px;
+    }
     .caixa-quizz {
-        height: 436px;
+       
         width: 100%; 
         max-width: 759px; 
         padding: 18px;   
         margin-top: 24px;  
     }
     .caixa-pergunta {
-        height: 89px;        
+        height: 89px;                
         margin-inline: 0px;        
     }
     h2 {        
         font-size: 19px;        
     }
     .opcao-resposta {        
-        font-size: 13px;        
+        font-size: 13px;
+        width:100%;
+        max-width: 210px;        
     }
     .caixa-duas-opcoes {        
         margin-top: 13px;
         margin-inline: 0px;
         max-width: 689px;
-        max-height: 136px;
+        
     }
     .caixa-duas-opcoes .caixa-opcao:nth-child(1) {
         margin-right: 6px;
@@ -475,9 +504,50 @@ div.lista-quizz ul {
     .caixa-duas-opcoes .caixa-opcao:nth-child(2) {
         margin-left: 6px;
     }
+    .caixa-opcao {
+        max-width: 210px;
+        
+    }
     .caixa-opcao img {
         max-height: 119px;
         max-width: 210px;
+    }
+    .finalizador {
+        max-width: 759px;
+        width: 100%;      
+        margin-top: 24px;
+        padding: 18px;
+        }
+    .img-topo-fim h2{        
+        font-size: 19px;        
+    }
+    .conteudo-fim {
+        width:100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 9px;
+    }
+    .conteudo-fim img {
+        width:100%;
+        justify-content: center;
+    }
+    .texto-fim {  
+        width:100%;    
+        font-size: 17px; 
+           
+    }
+    .botao-reiniciar {        
+        width: 221px;
+        height: 44px;
+        margin-top: 34px;        
+        font-size: 18px;        
+    }
+    .botao-voltarinicial {
+        width: 221px;
+        height: 44px;        
+        font-size: 18px;
+        margin-top: 10px;
     }
 
 }
