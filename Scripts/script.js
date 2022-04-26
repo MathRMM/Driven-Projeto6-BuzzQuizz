@@ -243,19 +243,29 @@ function questoes_quizz() {
 
         let adicionarPerguntasum = adicionarQuizz.querySelector(`#a${j} .um`);
 
-        for (let i = 0; i < sorteador[j].answers.length; i++) {
+        for (let i = 0; i < 2; i++) {
             adicionarPerguntasum.innerHTML += `<div class="caixa-opcao auxiliar" onclick="selecionarResposta(this)">
         <img src=${sorteador[j].answers[i].image}>
         <p class="opcao-resposta ${sorteador[j].answers[i].isCorrectAnswer} oculta">${sorteador[j].answers[i].text}</p>`;
         }
+        if (sorteador[j].answers.length > 2) {
+            let adicionarPerguntasdois = adicionarQuizz.querySelector(`#a${j} .dois`);
+            for (let i = Math.ceil((sorteador[j].answers.length) / 2); i < sorteador[j].answers.length; i++) {
+                adicionarPerguntasdois.innerHTML += `<div class="caixa-opcao auxiliar" onclick="selecionarResposta(this)">
+        <img src=${sorteador[j].answers[i].image}>
+        <p class="opcao-resposta ${sorteador[j].answers[i].isCorrectAnswer} oculta">${sorteador[j].answers[i].text}</p>`;
+            }
+        }
     }
-    console.log(quizz.levels);
-    scrollar();
 
-    function scrollar() {
-        let scrolll = document.querySelector(".tela_2").scrollIntoView();
-    }
-}
+
+console.log(quizz.levels);
+scrollar();
+
+function scrollar() {
+    let scrolll = document.querySelector(".tela_2").scrollIntoView();
+}}
+
 
 function implementar_finalizador() {
 
@@ -263,41 +273,52 @@ function implementar_finalizador() {
     console.log(nota);
     for (let i = (quizz.levels.length - 1); i >= 0; i = i - 1) {
         if (nota >= quizz.levels[i].minValue) {
-            let addFim = document.querySelector(".tela_2 .finalizador");
+            let addFim = document.querySelector(".finalizador");
             addFim.innerHTML = `      
-        <div class="img-topo-fim">
-            <h2> ${nota}% de acerto: ${quizz.levels[i].title} </h2>
-        </div>
-        <div class="conteudo-fim">
-        <img src=${quizz.levels[i].image}>
-        <p class="texto-fim">${quizz.levels[i].text}</p>            
-        </div>
-        </div>            
-        `;
+            <div class="img-topo-fim">
+                <h2> ${nota}% de acerto: ${quizz.levels[i].title} </h2>
+            </div>
+            <div class="conteudo-fim">
+            <img src=${quizz.levels[i].image}>
+            <p class="texto-fim">${quizz.levels[i].text}</p>          
+            </div>
+            </div>        
+            `;
         }
-        let addBotao = document.querySelector(".tela_2 footer");
-        addBotao.innerHTML = `<div class="botao-reiniciar" onclick="reiniciarQuizz()"><p> Reiniciar Quizz<p></div>
+    }
+    let addBotao = document.querySelector("footer");
+    addBotao.innerHTML = `<div class="botao-reiniciar" onclick="reiniciarQuizz()"><p> Reiniciar Quizz<p></div>
     <div class="botao-voltarinicial" onclick="voltarInicial()"><p>Voltar pra home</p></div>`
     }
-}
+
 
 function reiniciarQuizz() {
-    let contadorNota = 0;
-    let nota = 0;
-    let asc = 0;
+    contadorNota = 0;
+    nota = 0;
+    asc = quizz.questions.length - (quizz.questions.length - 2);
     let addBotao = document.querySelector("footer");
     addBotao.innerHTML = ``;
     resetar_tela2_style();
     implementar_tela_2();
+    console.log(asc);
 }
 
 function voltarInicial() {
+    contadorNota = 0;
+    nota = 0;
+    asc = quizz.questions.length - (quizz.questions.length - 2);
+    let addBotao = document.querySelector("footer");
+    addBotao.innerHTML = ``;
     resetar_tela2_style();
     iniciar_site();
+    let scrolll = document.querySelector(".tela_1").scrollIntoView();
+    console.log(asc);
 }
 function voltarInicial2() {
+  
     resetar_tela3_style();
     iniciar_site();
+   
 }
 
 // Tela 3 - Montar quizz do Usuario
@@ -573,12 +594,13 @@ function implementar_tela_3_3() {
     </ul>
   </div>
     `;
-    implementar_quantidades_niveis()
+    criar_levels()
 }
 
-function implementar_quantidades_niveis() {
-    let quantidade_niveis = document.querySelector(".tela_3 ul .niveis_usuarios")
 
+// Criar niveis pare ser mostrado no final do quizz
+function criar_levels() {
+        let quantidade_niveis = document.querySelector(".tela_3 ul .niveis_usuarios")
     for (let i = 0; i < levels_usuario_quizz; i++) {
         let n = i + 1
         quantidade_niveis.innerHTML += `
@@ -592,6 +614,7 @@ function implementar_quantidades_niveis() {
         `
     }
 }
+
 
 // Criar niveis pare ser mostrado no final do quizz
 function finalizar_quizz_usuario() {
@@ -674,12 +697,6 @@ function postar_lista_usuario(){
 function quizz_usuario(promessa){
     console.log(promessa)
 }
-
-
-
-
-
-
 
 
 // Tela 3 - Montar quizz do Usuario
