@@ -324,9 +324,8 @@ div.lista-quizz ul {
 .caixa-duas-opcoes {
     width: 100%;
     display: flex;
-    
+    flex-wrap: wrap;
     justify-content: space-between;
-
     margin-top: 20px;
     margin-inline: 7px;    
 }

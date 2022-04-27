@@ -251,23 +251,16 @@ function questoes_quizz() {
 
         let adicionarPerguntasum = adicionarQuizz.querySelector(`#a${j} .um`);
 
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < sorteador[j].answers.length; i++) {
             adicionarPerguntasum.innerHTML += `<div class="caixa-opcao auxiliar" onclick="selecionarResposta(this)">
         <img src=${sorteador[j].answers[i].image}>
         <p class="opcao-resposta ${sorteador[j].answers[i].isCorrectAnswer} oculta">${sorteador[j].answers[i].text}</p>`;
         }
-        if (sorteador[j].answers.length > 2) {
-            let adicionarPerguntasdois = adicionarQuizz.querySelector(`#a${j} .dois`);
-            for (let i = Math.ceil((sorteador[j].answers.length) / 2); i < sorteador[j].answers.length; i++) {
-                adicionarPerguntasdois.innerHTML += `<div class="caixa-opcao auxiliar" onclick="selecionarResposta(this)">
-        <img src=${sorteador[j].answers[i].image}>
-        <p class="opcao-resposta ${sorteador[j].answers[i].isCorrectAnswer} oculta">${sorteador[j].answers[i].text}</p>`;
-            }
-        }
+        console.log(sorteador[j].answers)                    
     }
 
 
-    console.log(quizz.levels);
+
     scrollar();
 
     function scrollar() {
